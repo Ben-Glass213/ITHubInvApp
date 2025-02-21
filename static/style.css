@@ -1,0 +1,212 @@
+/* Base styles and typography */
+@font-face {
+    font-family: "Brandon Grotesque";
+    src: url("fonts/BrandonGrotesque-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  :root {
+    --primary-color: #D6000D; /* Queen’s Red (Pantone 185c) */
+    --primary-hover: #bf000b; /* A darker variant for hover states */
+    --success-color: #16a34a;
+    --error-color: #dc2626;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-700: #374151;
+    --gray-900: #111827;
+  }
+  
+  body {
+    /* Use Brandon Grotesque as the primary typeface per the guidelines */
+    font-family: "Brandon Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--gray-900);
+    background-color: var(--gray-100);
+  }
+  
+  /* Updated Header styling */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .header-left,
+  .header-right {
+    width: 70px; /* Adjust this width to match your logo's width */
+  }
+  
+  .header-center {
+    flex: 1;
+    text-align: center;
+  }
+  
+  header img {
+    height: 70px; /* Adjust the size as needed */
+    /* Remove margin-right since we're controlling spacing via flex */
+  }
+  
+  .header-center h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    /* Ensure heading uses your custom font (if needed, you can adjust the family) */
+    font-family: "Brandon Grotesque", sans-serif;
+  }
+  
+  /* Container and layout */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* Mode selection buttons */
+  .mode-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  /* Forms styling */
+  form {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+  }
+  
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  input[type="text"]:focus,
+  select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  th {
+    background-color: var(--gray-100);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: var(--gray-700);
+  }
+  
+  td {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  
+  /* Flash messages */
+  .flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+  
+  .flashes li {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .flashes li.success {
+    background-color: #dcfce7;
+    color: var(--success-color);
+  }
+  
+  .flashes li.error {
+    background-color: #fee2e2;
+    color: var(--error-color);
+  }
+  
+  /* Search form */
+  .search-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-form input[type="text"] {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  /* Action links */
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .action-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .mode-buttons {
+      flex-direction: column;
+    }
+    
+    .search-form {
+      flex-direction: column;
+    }
+    
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+  

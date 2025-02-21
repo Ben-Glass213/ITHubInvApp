@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Edit Device</h2>
+<form method="post" action="{{ url_for('edit_device', device_id=device['id']) }}">
+  <label for="inventory_number">Inventory Number:</label>
+  <input type="text" name="inventory_number" id="inventory_number" value="{{ device['inventory_number'] }}" required>
+  <br>
+  <label for="service_tag">Service Tag:</label>
+  <input type="text" name="service_tag" id="service_tag" value="{{ device['service_tag'] }}" required>
+  <br>
+  <label for="status">Status:</label>
+  <select name="status" id="status">
+    <option value="In Office" {% if device['status'] == 'In Office' %}selected{% endif %}>In Office</option>
+    <option value="On loan" {% if device['status'] == 'On loan' %}selected{% endif %}>On loan</option>
+  </select>
+  <br>
+  <label for="student_assigned">Student Assigned (8 digits, leave blank if in office):</label>
+  <input type="text" name="student_assigned" id="student_assigned" value="{{ device['student_assigned'] or '' }}">
+  <br>
+  <button type="submit">Save Changes</button>
+  <a href="{{ url_for('index') }}">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="mode-buttons">
+  <button id="registrationModeBtn">Device Registration Mode</button>
+  <button id="lendingModeBtn">Lending Mode (Loans/Returns)</button>
+</div>
+
+<div id="registrationMode" style="display: none;">
+  <h3>Register New Device</h3>
+  <form action="{{ url_for('register_device') }}" method="post">
+    <label for="barcode">Scan Device Barcode:</label>
+    <input type="text" name="barcode" id="barcode" placeholder="INV ****** SERV *******" autofocus>
+    <button type="submit">Register Device</button>
+  </form>
+</div>
+
+<div id="lendingMode" style="display: none;">
+  <h3>Process Loan/Return</h3>
+  <form action="{{ url_for('process_lending') }}" method="post">
+    <label for="device_barcode">Scan Device Barcode:</label>
+    <input type="text" name="device_barcode" id="device_barcode" placeholder="INV ****** SERV *******" autofocus>
+    <br>
+    <label for="student_barcode">Scan Student Barcode (8 digits, for loan only):</label>
+    <input type="text" name="student_barcode" id="student_barcode" placeholder="Student 8-digit barcode">
+    <br>
+    <button type="submit">Process Transaction</button>
+  </form>
+</div>
+
+<hr>
+<div>
+  <h3>Device Inventory</h3>
+  <!-- Search Form -->
+  <form method="get" action="{{ url_for('index') }}" class="search-form">
+    <input type="text" name="q" placeholder="Search inventory, service tag, or student" value="{{ search_query }}">
+    <button type="submit">Search</button>
+    {% if search_query %}
+      <a href="{{ url_for('index') }}">Clear</a>
+    {% endif %}
+  </form>
+  <br>
+  <!-- Bulk deletion form wrapping the inventory table -->
+  <form method="post" action="{{ url_for('delete_bulk') }}">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Inventory Number</th>
+          <th>Service Tag</th>
+          <th>Status</th>
+          <th>Student Assigned</th>
+          <th>Last Update</th>
+          <th>Actions</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for device in devices %}
+        <tr>
+          <td>{{ device['inventory_number'] }}</td>
+          <td>{{ device['service_tag'] }}</td>
+          <td>{{ device['status'] }}</td>
+          <td>{{ device['student_assigned'] if device['student_assigned'] else '' }}</td>
+          <td>{{ device['last_update'] if device['last_update'] else '' }}</td>
+          <td>
+            <a href="{{ url_for('edit_device', device_id=device['id']) }}">Edit</a> |
+            <a href="{{ url_for('delete_device', device_id=device['id']) }}" onclick="return confirm('Are you sure you want to delete this device?');">Delete</a>
+          </td>
+          <td>
+            <input type="checkbox" name="selected_devices" value="{{ device['id'] }}">
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <button type="submit" onclick="return confirm('Are you sure you want to delete the selected devices?');">Delete Selected</button>
+  </form>
+</div>
+{% endblock %}
